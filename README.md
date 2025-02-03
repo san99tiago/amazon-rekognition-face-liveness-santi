@@ -1,5 +1,9 @@
 # Amazon Rekognition Face Liveness
 
+IMPORTANT:
+
+I added my personal steps at [./steps.sh](./steps.sh)
+
 A sample code to implement Amazon Rekognition Face Liveness to detect real users and deter bad actors using spoofs in seconds during facial verification.
 
 ## What is Amazon Rekognition Face Liveness?

@@ -75,9 +75,9 @@ for f in npm python3 jq zip; do
   fi
 done
 
-if [[ "`is_present awscliv2`" -eq "1" ]]; then
-  pip3 install awscliv2
-  awscliv2 --install
+if [[ "`is_present aws`" -eq "1" ]]; then
+  pip3 install aws
+  aws --install
   if [[ "$?" -ne "0" ]]; then
     color_red
     echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -92,7 +92,7 @@ if [[ "`is_present awscliv2`" -eq "1" ]]; then
   echo "=============================="
   echo "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html"
   echo
-  awscliv2 configure
+  aws configure
 fi
 
 if [[ "`is_present cdk`" -eq "1" ]]; then
@@ -114,7 +114,8 @@ color_green
 echo Passed.
 echo
 
-export S3_REGION=${S3_REGION:-$(aws configure get region)}
+# UPDATED BY SANTI!!!
+export S3_REGION=us-east-1
 
 if [ -z "$S3_REGION" ]
 then
@@ -240,7 +241,7 @@ echo "===================================="
 echo "Bootstrap CDK"
 echo "===================================="
 color_reset
-ACCOUNT_ID=`awscliv2 --region ${S3_REGION} sts get-caller-identity | jq '.Account' | tr -d '"'`
+ACCOUNT_ID=`aws --region ${S3_REGION} sts get-caller-identity | jq '.Account' | tr -d '"'`
 if [ "$?" -ne "0" -o -z "$ACCOUNT_ID" ]
 then
   color_red

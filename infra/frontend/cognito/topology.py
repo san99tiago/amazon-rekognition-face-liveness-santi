@@ -32,10 +32,11 @@ class FaceLivenessCognito(Construct):
         self.idp = cognito.CfnIdentityPool(self, "RFL-IdentityPool", identity_pool_name=rfl_stack.stack_name, allow_unauthenticated_identities=True, cognito_identity_providers=[cognito.CfnIdentityPool.CognitoIdentityProviderProperty(
             client_id=self.client.user_pool_client_id, provider_name=self.cognito.user_pool_provider_name, server_side_token_check=None)])
 
+        # TODO VALIDATE AUTH!!!
         self.unAuthrole = iam.Role(self, 'RFLIdentityPoolUnAuthRole',
                                    assumed_by=iam.FederatedPrincipal('cognito-identity.amazonaws.com', conditions=({
                                        "StringEquals": {"cognito-identity.amazonaws.com:aud": self.idp.ref},
-                                       "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "unauthenticated"}
+                                    #    "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "unauthenticated"}
                                    }), assume_role_action='sts:AssumeRoleWithWebIdentity'),
                                    description='role for amplify rfl-prod app',
 

@@ -40,11 +40,12 @@ class DefaultRflStack(IRflStack):
 
     feapp = FaceLivenessFrontEnd(self,"RflWebAPP",rfl_stack=self, apigateway=faceliveness.api_gateway, cognito= cognito)
 
-    triggerfeapp = TriggerFrontEndBuild(self,"RflWebAPPTrigger",rfl_stack=self,amplifyApp=feapp)
+    # # NOTE> Commented by Santi for now.
+    # triggerfeapp = TriggerFrontEndBuild(self,"RflWebAPPTrigger",rfl_stack=self,amplifyApp=feapp)
     # feapp = RflFrontEnd(self,"RflWebAPP",rfl_stack=self)
-    triggerfeapp.node.add_dependency(feapp)
-    feappstatus = FaceLivenessFrontEndBuildStatus(self,"RflWebAPPStatus",rfl_stack=self, amplifyApp=feapp , buildTrigger=triggerfeapp)
-    feappstatus.node.add_dependency(triggerfeapp)
+    # triggerfeapp.node.add_dependency(feapp)
+    # feappstatus = FaceLivenessFrontEndBuildStatus(self,"RflWebAPPStatus",rfl_stack=self, amplifyApp=feapp , buildTrigger=triggerfeapp)
+    # feappstatus.node.add_dependency(triggerfeapp)
 
 
   @property

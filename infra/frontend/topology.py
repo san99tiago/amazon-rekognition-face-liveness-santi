@@ -33,12 +33,13 @@ class FaceLivenessFrontEnd(Construct):
         s3_asset = s3_assets.Asset(self, "Rfl-Web-App-Code",
                                    path="./src/frontend"
                                    )
-        self.appRrepo = codecommit.Repository(self, "Rfl-Web-App-Repo",
-                                                    repository_name='{}-Repo'.format(
-                                                        rfl_stack.stack_name),
-                                                    code=codecommit.Code.from_asset(
-                                                        s3_asset)
-                                              )
+        # # COMMENTING DUE TO CODECOMMIT DEPRECATION
+        # self.appRrepo = codecommit.Repository(self, "Rfl-Web-App-Repo",
+        #                                             repository_name='{}-Repo'.format(
+        #                                                 rfl_stack.stack_name),
+        #                                             code=codecommit.Code.from_asset(
+        #                                                 s3_asset)
+        #                                       )
         self.amplify = amplify2.App(self, "Rfl-Web-App",
                                     app_name=rfl_stack.stack_name,
                                     auto_branch_creation=amplify2.AutoBranchCreation(
@@ -50,8 +51,8 @@ class FaceLivenessFrontEnd(Construct):
                                         target="/index.html",
                                         status=amplify2.RedirectStatus.REWRITE
                                     )],
-                                    source_code_provider=amplify2.CodeCommitSourceCodeProvider(
-                                        repository=self.appRrepo)
+                                    # source_code_provider=amplify2.CodeCommitSourceCodeProvider(
+                                    #     repository=self.appRrepo)
                                     )
         self.amplify.add_environment(
             name="REACT_APP_ENV_API_URL", value=apigateway.rest_api_url())
