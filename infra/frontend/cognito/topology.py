@@ -37,8 +37,8 @@ class FaceLivenessCognito(Construct):
             ),
             user_verification=cognito.UserVerificationConfig(
                 email_subject="Verify Your Email for RUFUS BANK!",
-                email_body="Hello {username}, thank you for signing up. Please verify your email by clicking on the link: {####}",
-                sms_message="Hello {username}, use this code to verify your phone number: {####}",
+                email_body="Hello, thank you for signing up. Please verify your email by clicking on the link: {####}",
+                sms_message="Hello, use this code to verify your phone number: {####}",
             ),
         )
 
