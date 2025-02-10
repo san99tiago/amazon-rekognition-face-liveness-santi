@@ -18,6 +18,8 @@ export REACT_APP_ENV_API_URL=https://v0onolh284.execute-api.us-east-1.amazonaws.
 cd frontend
 npm run build
 
-# MANUAL STEP
-# > Entered the Cognito Identity Pool and I updated it with user access with the same IAM Role policy as the one for guests.
-# > I manually added the Auth approach with the same role
+
+# MANUAL STEPS TO DEPLOY FRONTEND TO AMPLIFY (MANUAL WHILE I AUTOMATE THIS...)
+# > Compress the "build" output folder (select all from inside it), make ZIP file..
+# > Go to the Amplify Console, and upload the ZIP file...
+# > Add DNS Sub-Domain in the Amplify Console. (exclude root!!)
