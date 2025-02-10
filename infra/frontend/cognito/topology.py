@@ -4,7 +4,6 @@ from constructs import Construct
 from os import path
 from aws_cdk import aws_iam as iam, aws_cognito as cognito
 
-
 root_directory = path.dirname(__file__)
 bin_directory = path.join(root_directory, "bin")
 
@@ -19,8 +18,28 @@ class FaceLivenessCognito(Construct):
     ) -> None:
         super().__init__(scope, id)
 
+        # Create Cognito User Pool
         self.cognito = cognito.UserPool(
-            self, "RFL-Cognito-User-Pool", user_pool_name=rfl_stack.stack_name
+            self,
+            "RFL-Cognito-UserPool",
+            user_pool_name=rfl_stack.stack_name,
+            self_sign_up_enabled=True,  # Allow self-signup
+            auto_verify=cognito.AutoVerifiedAttrs(
+                email=True,  # Automatically verify emails
+            ),
+            standard_attributes=cognito.StandardAttributes(
+                email=cognito.StandardAttribute(
+                    required=True, mutable=True
+                ),  # Email is required
+                phone_number=cognito.StandardAttribute(
+                    required=True, mutable=True
+                ),  # Optional phone number
+            ),
+            user_verification=cognito.UserVerificationConfig(
+                email_subject="Verify Your Email for RUFUS BANK!",
+                email_body="Hello {username}, thank you for signing up. Please verify your email by clicking on the link: {####}",
+                sms_message="Hello {username}, use this code to verify your phone number: {####}",
+            ),
         )
 
         self.client = cognito.UserPoolClient(
